@@ -3,6 +3,9 @@ using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IProdutosService, ProdutosService>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.MapGet("produtos", async  ( [FromServices] IProdutosService _service) =>
@@ -17,4 +20,6 @@ app.MapGet("produtos/{id}", async ([FromServices] IProdutosService _service, [Fr
     return Results.Ok(item);
 });
 
+app.UseSwagger();
+app.UseSwaggerUI();
 app.Run();
