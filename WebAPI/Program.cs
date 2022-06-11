@@ -5,6 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IProdutosService, ProdutosService>();
 
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddHealthChecks();
+
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
@@ -22,4 +25,5 @@ app.MapGet("produtos/{id}", async ([FromServices] IProdutosService _service, int
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseHealthChecks("/health");
 app.Run();
